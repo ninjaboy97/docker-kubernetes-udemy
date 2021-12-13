@@ -1,9 +1,10 @@
+# version number for syntax
 version: '3'
-services:
+services: # defines the services to be set up. Networking is automatically set-up between these services.
   redis-server:
     image: 'redis'
   node-app:
-    restart: always
-    build: .
+    restart: always # docker automatically restarts this container if for some reason it fails. Note that it restarts the container that exited. Other restart policies: "on-failure", "unless-stopped"
+    build: . #
     ports:
       - "8081:8081"
