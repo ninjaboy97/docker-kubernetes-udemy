@@ -1,0 +1,23 @@
+FROM node:16-alpine
+
+WORKDIR /app
+
+# It's always a good practice to separate out the various phases of our docker build to be able to effectively use our build cache.
+# Here we are splitting our two build phases into
+# 1. installing the dependencies
+# 2. Copy the source over to the container
+
+# Build phase 1
+COPY ./package.json ./
+RUN npm install
+
+RUN npm config set unsafe-perm true
+
+# Build phase 2
+COPY ./ ./
+
+RUN chown -R node /app/node_modules
+
+USER node
+
+CMD ["npm", "run", "start"]
