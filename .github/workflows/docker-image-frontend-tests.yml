@@ -15,6 +15,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
-      run: docker build . --file frontend/Dockerfile.dev --tag mahidharbandaru/frontend
-    - name: Run tests
-      run: docker run mahidharbandaru/frontend npm run test -- --coverage
+      working-directory: ./frontend
+      run: |
+        docker build . --file Dockerfile.dev --tag mahidharbandaru/frontend
+        docker run mahidharbandaru/frontend npm run coverage
