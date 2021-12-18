@@ -1,0 +1,11 @@
+language: generic 
+sudo: required
+services:
+  - docker
+
+before_install:
+  - cd frontend/
+  - docker build -f Dockerfile.dev -t mahidharbandaru/frontend .
+
+script:
+  - docker run mahidharbandaru/frontend npm run test -- --coverage
